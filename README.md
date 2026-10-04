@@ -92,7 +92,7 @@ Other people have built status lines like this, and some do a lot more. I wanted
 
 - Everything comes from the JSON Claude Code sends to the status line. The fields are documented at https://code.claude.com/docs/en/statusline and may change. If one is renamed, that part shows `n/a` until the script is updated.
 - The 5-hour and weekly figures are the subscription windows Claude Code reports. I checked them against Claude desktop's usage view twice on 4 October 2026, with Claude Code 2.1.289. The reset times matched both times. The percentages did not: the weekly figure was 3 points under desktop and then 1, and the 5-hour figure was 15 points under and then 5. I have not pinned down why, so treat them as Claude Code's numbers.
-- I have tested it on Linux, and on macOS 26.7 with the bash that ships with it (3.2.57) and jq 1.7.1. I have not tried a newer bash on the Mac, or iTerm2. On Windows, use Git Bash or WSL.
+- I have tested it on Linux, and on macOS 26.7 with the bash that ships with it (3.2.57) and jq 1.7.1. I have not tried a newer bash on the Mac, or iTerm2, or Windows.
 
 ## Bugs and ideas
 
