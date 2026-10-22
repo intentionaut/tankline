@@ -98,6 +98,10 @@ Other people have built status lines like this, and some do a lot more. I wanted
 
 If something looks wrong, open an issue and say which Claude Code version you have. The line itself is the most useful thing to paste.
 
+## Support
+
+These projects are free to use. Tips go toward the time I spend building and maintaining them: [ko-fi.com/intentionaut](https://ko-fi.com/intentionaut)
+
 ## Licence
 
 MIT. See `LICENSE`.
