@@ -3,7 +3,7 @@
 # 5-hour / weekly usage. Needs only bash and jq. MIT licence.
 #
 # Reads the statusline session JSON on stdin, prints one line:
-#   ctx [######----] 62%  |  5h 23% resets 2h14m  |  7d 41% resets 3d4h
+#   Opus 5.5  |  ctx [######----] 62%  |  5h 23% resets 2h14m  |  7d 41% resets 3d4h
 # Anything missing prints n/a. It never prints 0% for data it does not have.
 #
 # Env vars (all optional):
@@ -29,9 +29,10 @@ input=$(cat)
 
 # One jq call. Fields are empty when absent or null. A non-whitespace separator
 # keeps empty fields in place (read would squash consecutive tabs).
-IFS='|' read -r ctx h5 h5r d7 d7r < <(
+IFS='|' read -r model ctx h5 h5r d7 d7r < <(
   printf '%s' "$input" | jq -r '
-    [ (.context_window.used_percentage // ""),
+    [ (.model.display_name // "" | gsub("\\|"; "/")),
+      (.context_window.used_percentage // ""),
       (.rate_limits.five_hour.used_percentage // ""),
       (.rate_limits.five_hour.resets_at // ""),
       (.rate_limits.seven_day.used_percentage // ""),
@@ -88,6 +89,8 @@ part_ctx() {
       if [ "$i" -lt "$filled" ]; then bar+="#"; else bar+="-"; fi
     done
     printf 'ctx %s[%s] %s%%%s%s' "$(colour "$p")" "$bar" "$p" "$(mark "$p")" "$Z"
+    # At crit, name the fix instead of only turning red.
+    [ "$p" -ge "$crit" ] && printf ' %s/compact%s' "$R" "$Z"
   else
     printf 'ctx %sn/a%s' "$D" "$Z"
   fi
@@ -103,4 +106,5 @@ part_window() { # label pct resets_at
   fi
 }
 
+[ -n "$model" ] && printf '%s  |  ' "$model"
 printf '%s  |  %s  |  %s\n' "$(part_ctx)" "$(part_window 5h "$h5" "$h5r")" "$(part_window 7d "$d7" "$d7r")"
