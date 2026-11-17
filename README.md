@@ -3,7 +3,7 @@
 How full is your tank? Tankline puts the answer in one line at the bottom of Claude Code: how much of your context window you have used, and how much of your 5-hour and weekly limits.
 
 ```
-ctx [######----] 62%  |  5h 24% resets 2h13m  |  7d 91% resets 3d8h
+Opus 5.5  |  ctx [######----] 62%  |  5h 24% resets 2h13m  |  7d 91% resets 3d8h
 ```
 
 One bash file. The only dependency is `jq`. Nothing to configure.
@@ -23,7 +23,8 @@ You need `bash` and `jq`. Check with `jq --version`. If it is missing, install i
 
 ## Reading the gauge
 
-- `ctx` is the share of your context window in use, from `context_window.used_percentage`. The bar is 10 characters wide by default.
+- The model you are on comes first, from `model.display_name`.
+- `ctx` is the share of your context window in use, from `context_window.used_percentage`. The bar is 10 characters wide by default. From 90% it adds `/compact`, the command that frees up room.
 - `5h` and `7d` are the shares of your 5-hour and 7-day usage windows you have used, from `rate_limits.five_hour` and `rate_limits.seven_day`, with the time left until each one resets.
 
 Green, then yellow from 70%, then red from 90%. Each figure gets its own colour.
